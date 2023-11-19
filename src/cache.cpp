@@ -1,11 +1,5 @@
 /************************************************************************************************/
-/*                                   Cache Simultor                                             */
-/*                                                                                              */
-/*                                     Blake Owen                                               */
-/*                                                                                              */
-/*       This program is designed to simulate various cache configurations. It takes a trace
-/*       file as input (with memory reads and writes included) and prompts the user for
-/*           */
+/*                                 Cache Simultor Methods                                       */
 /************************************************************************************************/
 #include "cache.h"
 #include <math.h>

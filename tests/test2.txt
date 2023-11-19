@@ -1,5 +1,5 @@
+D:\C++\CDA3101\CacheSimulation\trace\swim.trace
 512
 64
 0
 0
-D:\C++\CDA3101\CacheSimulation\trace\swim.trace
