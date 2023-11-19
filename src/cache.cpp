@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -31,15 +32,14 @@ Cache::Cache(unsigned int cSize, unsigned int lSize, unsigned int sSize, unsigne
     lineSize = lSize; // Bytes per line
     setSize = sSize; // Lines per set
 
-    // Size of offset field
-    offset = log2(lSize); 
+    offset = log2(lSize); // Size of offset field
 
     // Cache Specs:
     // cout << "Total Lines: " << linesCache << endl;
     // cout << "Set Field Size: " << setField << endl;
     // cout << "Offset: " << offset << endl;
 
-    isLRU = (LRU == 0 ? false : true);
+    isLRU = (LRU == 0 ? false : true); // LRU is enabled or disabled
 
     // Allocate space onto cache for each line
     for (int i = 0; i < linesCache; i++) {
@@ -81,15 +81,14 @@ int Cache::getSet(bitset<32> bitAddr) {
 bool Cache::loadFile(string fileName) {
     ifstream file(fileName);
     
-
     if (!file.is_open()) {
         cout << "Error reading file" << endl;
         return false;
     }
 
-    string ls, addr, bytes;
+    string ls, addr, bytes; // Initialize each value of row (load/store, address, and number of bytes)
 
-    int i = 0;
+    int i = 0; // Number of cache checks
 
     while (!file.eof()) {
         getline(file, ls, ' ');
@@ -99,6 +98,7 @@ bool Cache::loadFile(string fileName) {
             break;
         }
 
+        // Convert hex address to bitset
         stringstream hexStream;
         hexStream << hex << addr;
 
@@ -107,6 +107,7 @@ bool Cache::loadFile(string fileName) {
 
         bitset<32> bitAddr(bits);
 
+        // Store the address, set, and tag to the new line object
         Line newLine;
         newLine.address = bitAddr;
         newLine.set = getSet(bitAddr);
@@ -180,17 +181,17 @@ bool Cache::loadFile(string fileName) {
             
         }
 
-        i++;
+        i++; // Iterate number of cache checks
     }
 }
 
 // Calculates and prints the hit ratio
 void Cache::HitRatio() {
-    cout << "Specs: " << cacheSize << " byte cache, " 
+    cout << "\nSpecs: " << cacheSize << " byte cache, " 
     << lineSize << " byte lines, " << linesCache << " lines in cache, " 
     <<  (setSize == 0 ? linesCache : setSize) << " lines per set, " 
-    << (setSize != 1 ? (isLRU ? "LRU replacement.\n" : "FIFO replacement.\n") : "Direct map.\n") << endl;
+    << (setSize != 1 ? (isLRU ? "LRU replacement." : "FIFO replacement.") : "Direct map.") << endl;
 
     cout << "Hits: " << hitCount << " Misses: " << missCount << endl;
-    cout << "Hit ratio: " << (float)hitCount / ((float)(hitCount) + (float)missCount) << endl;
+    cout << "Hit ratio: " << fixed << setprecision(6) << (float)hitCount / ((float)(hitCount) + (float)missCount) << endl;
 }

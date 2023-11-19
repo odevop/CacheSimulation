@@ -24,7 +24,7 @@ int main() {
 
     string fileName;
 
-    cout << "Filename to open: ";
+    cout << "File to open: ";
     cin >> fileName;
 
     string autoTest;

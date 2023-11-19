@@ -18,7 +18,9 @@ struct Line {
     int counter = 0;
 };
 
+// Simulated cache object
 class Cache {
+    // Lines of the simulated cache
     vector<Line> cache;
 
     unsigned int cacheSize; // Size of the cache (bytes)
@@ -28,13 +30,12 @@ class Cache {
     unsigned int linesCache; // Number of lines in the cache
 
     int offset; // Size of the offset field (in bits)
-    //int lineField; // Size of line field (in bits)
     int setField; // Size of each set field (in bits). Determines associativity
 
     bool isLRU; // Indicates if LRU (Least Recently Used) is enabled. If false, defaults to FIFO.
 
-    unsigned int hitCount = 0;
-    unsigned int missCount = 0;
+    unsigned int hitCount = 0; // Number of hits
+    unsigned int missCount = 0; // Number of misses
 
     public:
         // Constructor
