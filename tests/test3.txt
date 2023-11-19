@@ -1,0 +1,5 @@
+1024
+64
+8
+1
+D:\C++\CDA3101\CacheSimulation\trace\gcc.trace
