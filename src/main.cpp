@@ -102,8 +102,10 @@ int main() {
 
             if (lineSize > cacheSize || ceil(log2(lineSize)) != floor(log2(lineSize))) {
                 cout << "Invalid line size, must be a multiple of 2 and less than " << cacheSize << "." << endl;
+            } else if (lineSize < 4) {
+                cout << "Invalid line size, must be at least 4." << endl;
             }
-        } while (lineSize > cacheSize || ceil(log2(lineSize)) != floor(log2(lineSize)));
+        } while (lineSize > cacheSize || ceil(log2(lineSize)) != floor(log2(lineSize)) || lineSize < 4);
         
 
         do {
