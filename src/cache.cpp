@@ -34,11 +34,6 @@ Cache::Cache(unsigned int cSize, unsigned int lSize, unsigned int sSize, unsigne
 
     offset = log2(lSize); // Size of offset field
 
-    // Cache Specs:
-    // cout << "Total Lines: " << linesCache << endl;
-    // cout << "Set Field Size: " << setField << endl;
-    // cout << "Offset: " << offset << endl;
-
     isLRU = (LRU == 0 ? false : true); // LRU is enabled or disabled
 
     // Allocate space onto cache for each line
@@ -89,6 +84,8 @@ bool Cache::loadFile(string fileName) {
     string ls, addr, bytes; // Initialize each value of row (load/store, address, and number of bytes)
 
     int i = 0; // Number of cache checks
+
+    int fifoCounter = 0;
 
     while (!file.eof()) {
         getline(file, ls, ' ');
@@ -160,7 +157,7 @@ bool Cache::loadFile(string fileName) {
                 for (int j = newLine.set; j < (setSize == 0 ? linesCache : newLine.set + setSize); j++) { 
                     // Case for hit (FIFO)              
                     if (cache.at(j).tag == newLine.tag) {
-                        cache.at(j).counter++;
+                        //cache.at(j).counter++;
                         hitCount++;
                         hit = true;
                         break;
@@ -173,7 +170,7 @@ bool Cache::loadFile(string fileName) {
 
                 // Case for miss (FIFO)
                 if (!hit) {
-                    newLine.counter = cache.at(firstIndex).counter + 1;
+                    newLine.counter = fifoCounter++;
                     cache.at(firstIndex) = newLine;
                     missCount++;
                 }
@@ -197,5 +194,5 @@ void Cache::HitRatio() {
     << (setSize != 1 ? (isLRU ? "LRU replacement." : "FIFO replacement.") : "Direct map.") << endl;
 
     cout << "Hits: " << hitCount << " Misses: " << missCount << endl;
-    cout << "Hit ratio: " << fixed << setprecision(6) << (float)hitCount / ((float)(hitCount) + (float)missCount) << endl;
+    cout << "Hit Ratio: " << fixed << setprecision(6) << (float)hitCount / ((float)(hitCount) + (float)missCount) << endl;
 }
