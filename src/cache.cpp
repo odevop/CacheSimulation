@@ -10,6 +10,7 @@
 
 using namespace std;
 
+// Constructor. Inputs are: cache size (bytes), line size (bytes), set size (lines per set) LRU (1 for enabled, 0 for disabled)
 Cache::Cache(unsigned int cSize, unsigned int lSize, unsigned int sSize, unsigned int LRU) {
     linesCache = cSize / lSize; // Lines in cache
     
@@ -48,6 +49,7 @@ Cache::Cache(unsigned int cSize, unsigned int lSize, unsigned int sSize, unsigne
     }
 }
 
+// Returns the bitset tag of the address
 int Cache::getTag(bitset<32> bitAddr) {
     // Calculate tag integer
     int tagInt = 0;
@@ -61,6 +63,7 @@ int Cache::getTag(bitset<32> bitAddr) {
     return tagInt;
 }
 
+// Returns the bitset set of the address
 int Cache::getSet(bitset<32> bitAddr) {
     // Calculate set integer
     int setInt = 0;
@@ -74,6 +77,7 @@ int Cache::getSet(bitset<32> bitAddr) {
     return setInt;
 }
 
+// Loads file and inputs addresses to cache, tracking hit and miss counts
 bool Cache::loadFile(string fileName) {
     ifstream file(fileName);
     
@@ -180,6 +184,7 @@ bool Cache::loadFile(string fileName) {
     }
 }
 
+// Calculates and prints the hit ratio
 void Cache::HitRatio() {
     //cout << "Specs: " << cacheSize << " " << lineSize << " " << setSize << " " << isLRU << endl;
     //cout << "Hits: " << hitCount << " Misses: " << missCount << endl;

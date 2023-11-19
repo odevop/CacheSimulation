@@ -1,3 +1,6 @@
+/************************************************************************************************/
+/*                                 Cache Simultor Class                                         */
+/************************************************************************************************/
 #include <vector>
 #include <string>
 #include <bitset>
@@ -34,15 +37,21 @@ class Cache {
     unsigned int missCount = 0;
 
     public:
+        // Constructor
         Cache(unsigned int cSize, 
               unsigned int lSize, 
               unsigned int sSize,
               unsigned int LRU);
 
+        // Returns the bitset tag of the address
         int getTag(bitset<32> address);
+
+        // Returns the bitset set of the address
         int getSet(bitset<32> address);
 
-        void HitRatio();
-
+        // Loads file and inputs addresses to cache, tracking hit and miss counts
         bool loadFile(string fileName);
+
+        // Calculates and prints the hit ratio
+        void HitRatio();
 };
