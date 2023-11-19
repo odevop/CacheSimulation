@@ -183,6 +183,10 @@ bool Cache::loadFile(string fileName) {
 
         i++; // Iterate number of cache checks
     }
+
+    file.close();
+
+    return true;
 }
 
 // Calculates and prints the hit ratio

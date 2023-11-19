@@ -11,13 +11,13 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <math.h>
 #include "cache.h"
 
 using namespace std;
 
 int main() {
-
     unsigned int cacheSize, lineSize, setSize, LRU;
 
     LRU = 0;
@@ -26,6 +26,15 @@ int main() {
 
     cout << "File to open: ";
     cin >> fileName;
+
+    // Test if file exists
+    ifstream file(fileName);
+    if (!file.is_open()) {
+        cout << "Error reading file" << endl;
+        return 1;
+    }
+
+    file.close();
 
     string autoTest;
     cout << "Perform automated tests? (y/n) ";
