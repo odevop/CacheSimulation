@@ -186,7 +186,11 @@ bool Cache::loadFile(string fileName) {
 
 // Calculates and prints the hit ratio
 void Cache::HitRatio() {
-    //cout << "Specs: " << cacheSize << " " << lineSize << " " << setSize << " " << isLRU << endl;
-    //cout << "Hits: " << hitCount << " Misses: " << missCount << endl;
-    cout << (float)hitCount / ((float)(hitCount) + (float)missCount) << endl;
+    cout << "Specs: " << cacheSize << " byte cache, " 
+    << lineSize << " byte lines, " << linesCache << " lines in cache, " 
+    <<  (setSize == 0 ? linesCache : setSize) << " lines per set, " 
+    << (setSize != 1 ? (isLRU ? "LRU replacement.\n" : "FIFO replacement.\n") : "Direct map.\n") << endl;
+
+    cout << "Hits: " << hitCount << " Misses: " << missCount << endl;
+    cout << "Hit ratio: " << (float)hitCount / ((float)(hitCount) + (float)missCount) << endl;
 }

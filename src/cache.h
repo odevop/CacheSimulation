@@ -41,7 +41,7 @@ class Cache {
         Cache(unsigned int cSize, 
               unsigned int lSize, 
               unsigned int sSize,
-              unsigned int LRU);
+              unsigned int LRU = 0);
 
         // Returns the bitset tag of the address
         int getTag(bitset<32> address);

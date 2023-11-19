@@ -20,16 +20,18 @@ int main() {
 
     unsigned int cacheSize, lineSize, setSize, LRU;
 
+    LRU = 0;
+
     string fileName;
 
     cout << "Filename to open: ";
     cin >> fileName;
 
     string autoTest;
-    cout << "Perform automated tests? (Y/N) ";
+    cout << "Perform automated tests? (y/n) ";
     cin >> autoTest;
 
-    if (autoTest == "Y") {
+    if (autoTest == "Y" || autoTest == "y") {
         // Automated tests: Outermost loop determines the cache size
         for (int i = 9; i <= 14; i++) {
             cacheSize = pow(2, i);
@@ -74,17 +76,42 @@ int main() {
             }
         }
     } else {
-        cout << "Enter the cache size in bytes: ";
-        cin >> cacheSize;
+        do {
+            cout << "\nEnter the cache size in bytes: ";
+            cin >> cacheSize;
 
-        cout << "Enter the line size in bytes: ";
-        cin >> lineSize;
+            if (ceil(log2(cacheSize)) != floor(log2(cacheSize))) {
+                cout << "Invalid cache size, must be a multiple of 2." << endl;
+            } else if (cacheSize < 1) {
+                cout << "Please enter a positive value." << endl;
+            }
+        } while (ceil(log2(cacheSize)) != floor(log2(cacheSize)) || cacheSize < 1);
+        
+        do {
+            cout << "\nEnter the line size in bytes: ";
+            cin >> lineSize;
 
-        cout << "Enter the size of each set \n(1 for direct map. 0 for fully associative. All else is n-way set associative): ";
-        cin >> setSize;
+            if (lineSize > cacheSize || ceil(log2(lineSize)) != floor(log2(lineSize))) {
+                cout << "Invalid line size, must be a multiple of 2 and less than " << cacheSize << "." << endl;
+            }
+        } while (lineSize > cacheSize || ceil(log2(lineSize)) != floor(log2(lineSize)));
+        
 
-        cout << "Enter 0 for FIFO replacement, 1 for LRU replacement: ";
-        cin >> LRU;
+        do {
+            cout << "\nEnter the size of each set \n(1 for direct map. 0 for fully associative. All else is n-way set associative): ";
+            cin >> setSize;
+
+            if (setSize > cacheSize / lineSize || ceil(log2(setSize)) != floor(log2(setSize))) {
+                cout << "Invalid set size, must be less than " << cacheSize / lineSize << " and a multiple of 2." <<  endl;
+            }
+        } while (setSize > cacheSize / lineSize || ceil(log2(setSize)) != floor(log2(setSize)));
+        
+        do {
+            if (setSize != 1) {
+                cout << "\nEnter 0 for FIFO replacement, 1 for LRU replacement: ";
+                cin >> LRU;
+            }
+        } while (LRU != 0 && LRU != 1);
 
         Cache c(cacheSize, lineSize, setSize, LRU);
 
