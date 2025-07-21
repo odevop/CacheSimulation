@@ -1,8 +1,8 @@
 CXX       := g++
-CXXFLAGS  := -std=c++17 -Wall -O2
+CXXFLAGS  := -std=c++17 -Wall -O2 -Isrc
 BUILD_DIR := build
 TARGET    := $(BUILD_DIR)/CacheSimulation.exe
-SRC       := src/main.cpp
+SRC       := src/main.cpp src/cache.cpp
 
 main: $(TARGET)
 
