@@ -7,10 +7,10 @@ SRC       := src/main.cpp
 main: $(TARGET)
 
 $(TARGET): $(SRC) | $(BUILD_DIR)
-  $(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 $(BUILD_DIR):
-  mkdir -p $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)
 
 clean:
-  rm -rf $(BUILD_DIR)
+	rm -rf $(BUILD_DIR)
